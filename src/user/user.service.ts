@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import objection from 'objection';
-import { UserModel } from 'src/db/models/User.model';
+import { UserModel } from '../db/models/User.model';
 import { UserInterface } from './interface/user.interface';
 import { newUser } from './dto/newUser.dto';
 import { updatedUser } from './dto/updatedUser.dto';
