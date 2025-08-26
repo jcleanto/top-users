@@ -1,21 +1,28 @@
 import type { Knex } from "knex";
 
-// Update with your config settings.
-
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: "sqlite3",
+    client: "postgresql",
     connection: {
-      filename: "./dev.sqlite3"
+      database: "top_users",
+      user: "postgres",
+      password: "D0us5xm4"
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: "knex_migrations"
     }
   },
 
   staging: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      database: "top_users",
+      user: "postgres",
+      password: "D0us5xm4"
     },
     pool: {
       min: 2,
@@ -29,9 +36,9 @@ const config: { [key: string]: Knex.Config } = {
   production: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      database: "top_users",
+      user: "postgres",
+      password: "D0us5xm4"
     },
     pool: {
       min: 2,
