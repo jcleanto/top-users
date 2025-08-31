@@ -14,6 +14,8 @@ export async function up(knex: Knex): Promise<void> {
     t.string('cidade');
     t.string('estado');
     t.string('cep');
+    t.string('senha');
+    t.enum('role', ['user', 'admin', 'customer', 'system']).notNullable();
     t.enum('status', ['ativo', 'inativo']).notNullable();
     t.boolean('is_deleted').defaultTo(false);
     t.timestamp('created_at').defaultTo(knex.fn.now());
