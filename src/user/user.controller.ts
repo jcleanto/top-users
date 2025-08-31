@@ -13,7 +13,7 @@ export class UserController {
     const allUsers = await this.userService.findAllUsers();
     return response
       .status(200)
-      .send({ message: 'Todos os usuários logicamente não deletados (isDeleted=false)', data: allUsers });
+      .send({ message: 'Todos os usuários logicamente não deletados (isDeleted=false)', data: allUsers, count: allUsers.length });
   }
 
   @Get('/:userId')

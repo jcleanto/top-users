@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { DatabaseModule } from '../db/database.module';
-import { StatusEnum, UserModel } from '../db/models/User.model';
+import { RoleEnum, StatusEnum, UserModel } from '../db/models/User.model';
 
 describe('UserService', () => {
   let service: UserService;
@@ -82,6 +82,8 @@ describe('UserService', () => {
         estado: 'Ceará',
         cep: '60000-000',
         status: StatusEnum.ATIVO,
+        senha: '12345678',
+        role: RoleEnum.USER,
       };
       const createdUser = { id: 2, ...newUser };
 

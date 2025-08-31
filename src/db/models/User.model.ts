@@ -5,6 +5,13 @@ export enum StatusEnum {
   INATIVO = 'inativo'
 }
 
+export enum RoleEnum {
+  USER = 'user',
+  ADMIN = 'admin',
+  CUSTOMER = 'customer',
+  SYSTEM = 'system',
+}
+
 export class UserModel extends BaseModel {
   static tableName = 'users';
   nome: string;
@@ -16,5 +23,7 @@ export class UserModel extends BaseModel {
   cidade: string;
   estado: string;
   cep: string;
+  senha: string;
+  role: RoleEnum;
   status: StatusEnum;
 }

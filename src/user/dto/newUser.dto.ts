@@ -1,4 +1,4 @@
-import { StatusEnum } from "src/db/models/User.model";
+import { RoleEnum, StatusEnum } from "src/db/models/User.model";
 
 export class newUser {
   nome: string;
@@ -10,5 +10,7 @@ export class newUser {
   cidade: string;
   estado: string;
   cep: string;
+  senha: string;
+  role: RoleEnum;
   status: StatusEnum;
 }

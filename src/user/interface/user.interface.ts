@@ -11,9 +11,19 @@ export interface UserInterface {
   cidade: string;
   estado: string;
   cep: string;
+  senha: string | undefined;
+  role: string;
   status: StatusEnum;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
+}
+
+export interface AuthUserInterface {
+  id: number;
+  nome: string;
+  email: string;
+  senha: string;
+  role: string;
 }

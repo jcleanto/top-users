@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import objection from 'objection';
-import { UserModel } from '../db/models/User.model';
-import { UserInterface } from './interface/user.interface';
+import { StatusEnum, UserModel } from '../db/models/User.model';
+import { AuthUserInterface, UserInterface } from './interface/user.interface';
 import { newUser } from './dto/newUser.dto';
 import { updatedUser } from './dto/updatedUser.dto';
 
@@ -29,6 +29,7 @@ export class UserService {
 
   // update an existent User
   async updateUser(userId: number, updatedUser: updatedUser): Promise<boolean> {
+    updatedUser.updatedAt = new Date().toISOString();
     await this.UserClass.query().update(updatedUser).where('id', userId);
     return true;
   }
@@ -40,5 +41,17 @@ export class UserService {
     deletedUser.deletedAt = new Date().toISOString();
     await this.UserClass.query().update(deletedUser).where('id', userId);
     return true;
+  }
+
+  // validate a User for authentication
+  async validateUser(email: string, senha: string): Promise<any | undefined> {
+    console.log(`[UserService] validateUser, email: ${email}, senha: ${senha}`)
+    const user = await this.UserClass.query().findOne({ email, senha, isDeleted: false, status: StatusEnum.ATIVO });
+
+    if (user) {
+      console.log('[UserService] validateUser: found user', user)
+      return { ...user, senha: undefined }
+    }
+    return undefined
   }
 }
