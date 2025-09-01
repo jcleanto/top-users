@@ -65,7 +65,7 @@ export class UserController {
     }
     const updatedUser = await this.userService.findUserById(userId);
     return response
-      .status(201)
+      .status(200)
       .send({ message: 'Usuário atualizado com sucesso', data: updatedUser });
   }
 
@@ -86,7 +86,7 @@ export class UserController {
     }
     const deletedUser = await this.userService.findUserById(userId);
     return response
-      .status(201)
+      .status(200)
       .send({ message: 'Usuário deletado com sucesso', data: deletedUser });
   }
 }

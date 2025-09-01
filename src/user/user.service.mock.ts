@@ -23,7 +23,7 @@ export const userMock: UserInterface = {
   deletedAt: null
 };
 
-const statusResponseMock = {
+export const statusResponseMock = {
   send: jest.fn((x) => x),
   json: jest.fn((x) => x),
   end: jest.fn(),

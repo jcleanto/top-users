@@ -1,4 +1,4 @@
-import { StatusEnum } from "src/db/models/User.model";
+import { RoleEnum, StatusEnum } from "src/db/models/User.model";
 
 export interface UserInterface {
   id: number;
@@ -12,7 +12,7 @@ export interface UserInterface {
   estado: string;
   cep: string;
   senha: string | undefined;
-  role: string;
+  role: RoleEnum;
   status: StatusEnum;
   isDeleted: boolean;
   createdAt: string;
