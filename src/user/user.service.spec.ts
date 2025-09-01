@@ -97,4 +97,97 @@ describe('UserService', () => {
       expect(UserModel.query().insert).toHaveBeenCalledWith(newUser);
     });
   });
+
+  describe('updateUser', () => {
+    it('should update an user', async () => {
+      const updateUser = {
+        id: 2,
+        nome: 'Novo Usuário de Teste 2',
+        email: 'teste2@email.com',
+        rua: 'Rua 2',
+        numero: '200',
+        bairro: 'Bairro 2',
+        complemento: 'Casa B',
+        cidade: 'Fortaleza',
+        estado: 'Ceará',
+        cep: '60000-000',
+        status: StatusEnum.ATIVO,
+        senha: '12345678',
+        role: RoleEnum.USER,
+      };
+      const updatedUser = { nome: 'Novo Usuário de Teste 22', ...updateUser };
+
+      jest.spyOn(UserModel, 'query').mockReturnValue({
+        update: jest.fn().mockResolvedValue(updatedUser).mockReturnValue({
+          where: jest.fn()
+        } as any),
+      } as any);
+
+      const result = await service.updateUser(updateUser.id, updateUser);
+      expect(result).toBeTruthy();
+      expect(UserModel.query).toHaveBeenCalled();
+      expect(UserModel.query().update).toHaveBeenCalledWith(updateUser);
+    });
+  });
+
+  describe('deleteUser', () => {
+    it('should delete an user', async () => {
+      const deleteUser = {
+        id: 2,
+        nome: 'Novo Usuário de Teste 2',
+        email: 'teste2@email.com',
+        rua: 'Rua 2',
+        numero: '200',
+        bairro: 'Bairro 2',
+        complemento: 'Casa B',
+        cidade: 'Fortaleza',
+        estado: 'Ceará',
+        cep: '60000-000',
+        status: StatusEnum.ATIVO,
+        role: RoleEnum.USER,
+      };
+      const deletedUser = { isDeleted: true, deletedAt: new Date().toISOString() };
+
+      jest.spyOn(UserModel, 'query').mockReturnValue({
+        update: jest.fn().mockResolvedValue(deleteUser).mockReturnValue({
+          where: jest.fn()
+        } as any),
+      } as any);
+
+      const result = await service.deleteUser(deleteUser.id);
+      expect(result).toBeTruthy();
+      expect(UserModel.query).toHaveBeenCalled();
+      expect(UserModel.query().update).toHaveBeenCalledWith(deletedUser);
+    });
+  });
+
+  describe('validateUser', () => {
+    it('should validate an user for authentication', async () => {
+      const validateUser = {
+        id: 2,
+        nome: 'Novo Usuário de Teste 2',
+        email: 'teste2@email.com',
+        rua: 'Rua 2',
+        numero: '200',
+        bairro: 'Bairro 2',
+        complemento: 'Casa B',
+        cidade: 'Fortaleza',
+        estado: 'Ceará',
+        cep: '60000-000',
+        senha: '12345678',
+        status: StatusEnum.ATIVO,
+        role: RoleEnum.USER,
+      };
+      const validatedUser = { ...validateUser, senha: undefined };
+
+      jest.spyOn(UserModel, 'query').mockReturnValue({
+        findOne: jest.fn().mockResolvedValue(validateUser),
+      } as any);
+
+      const result = await service.validateUser(validateUser.email, validateUser.senha);
+      expect(result).toEqual(validatedUser);
+      expect(UserModel.query).toHaveBeenCalled();
+      expect(UserModel.query().findOne).toHaveBeenCalledWith({ email: validateUser.email, senha: validateUser.senha, isDeleted: false, status: StatusEnum.ATIVO });
+    });
+  });
 });
